@@ -79,15 +79,14 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">User Menu</h6>
-                        <a class="collapse-item" href="#">User</a>
+                        <a class="collapse-item" href="{{ route('users.index') }}">User</a>
                         <a class="collapse-item" href="#">Role</a>
                         <a class="collapse-item" href="#">Permission</a>
                     </div>
                 </div>
             </li>
 
-{{-- 
-            <!-- Sidebar Toggler (Sidebar) -->
+            {{-- <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div> --}}
@@ -111,16 +110,18 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->username }}</span>
+                                <span
+                                    class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->username }}</span>
                                 <span class="avatar avatar-sm rounded-circle">
-                                  <img alt="Image placeholder"
-                                     src="https://ui-avatars.com/api/?name={{ Auth::user()->username }}&rounded=true" width="40">
-                               </span>
+                                    <img alt="Image placeholder"
+                                        src="https://ui-avatars.com/api/?name={{ Auth::user()->username }}&rounded=true"
+                                        width="40">
+                                </span>
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="/lo" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -135,7 +136,7 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <div class="row">
-                      @yield('content')
+                        @yield('content')
                     </div>
                 </div>
                 <!-- /.container-fluid -->
@@ -178,9 +179,15 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="{{ route('logout') }}"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </div>
+
             </div>
+
         </div>
     </div>
 
