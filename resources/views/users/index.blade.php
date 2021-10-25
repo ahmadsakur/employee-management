@@ -6,25 +6,43 @@
             <div>
                 @if (session()->has('message'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                      {{ session('message') }}
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
+                        {{ session('message') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                 @endif
                 @if (session()->has('validate'))
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                  {{ session('validate') }}
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-            @endif
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ session('validate') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
             </div>
             <div class="card-header">
-                <a href="{{ route('users.create') }}" class="btn btn-primary float-right">
-                    <span><i class="fas fa-plus"></i></span>
-                    Create</a>
+                <div class="row">
+                    <div class="col">
+                        <form method="GET" action="{{ route('users.index') }}">
+                            <div class="form-row align-items-center">
+                                <div class="col">
+                                    <input type="search" name="keyword" placeholder="Search" class="form-control mb-2" id="inlineFormInput">
+                                </div>
+                                <div class="col">
+                                    <button type="submit" class="btn btn-primary mb-2">Search</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div>
+                        <a href="{{ route('users.create') }}" class="btn btn-success">
+                            <span><i class="fas fa-plus"></i></span>
+                            Create</a>
+                    </div>
+                </div>
+                
+
             </div>
             <div class="card-body">
                 <table class="table table-striped">
@@ -37,24 +55,29 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($users as $item)
-                            <tr>
-                                <td>{{ $item->id }}</td>
-                                <td>{{ $item->username }}</td>
-                                <td>{{ $item->email }}</td>
-                                <td>
-                                    <div class="justify-content-center">
-                                        <a href="{{ route('users.edit', $item->id) }}" class="btn btn-sm btn-warning float-left mr-2">Edit</a>
-                                        <form method="POST" action="{{ route('users.destroy', $item->id) }}">
+                        @forelse ( $users as $item )
+                        <tr>
+                            <td>{{ $item->id }}</td>
+                            <td>{{ $item->username }}</td>
+                            <td>{{ $item->email }}</td>
+                            <td>
+                                <div class="justify-content-center">
+                                    <a href="{{ route('users.edit', $item->id) }}"
+                                        class="btn btn-sm btn-warning float-left mr-2">Edit</a>
+                                    <form method="POST" action="{{ route('users.destroy', $item->id) }}">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                        </form>
-                                    </div>
+                                    </form>
+                                </div>
 
-                                </td>
+                            </td>
+                        </tr>
+                        @empty
+                            <tr>
+                                <td colspan="4" class="text-center"> Data not found </td>
                             </tr>
-                        @endforeach
+                        @endforelse
                     </tbody>
                 </table>
             </div>

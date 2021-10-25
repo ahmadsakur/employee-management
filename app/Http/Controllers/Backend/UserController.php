@@ -18,10 +18,14 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
         $users = User::get();
+        if ($request->has('keyword')) {
+            $users = User::where('username', 'like', "%{$request->keyword}%")->orWhere('email', 'like',"%{$request->keyword}")->get();
+        }
+
         return view('users.index', compact('users'));
     }
 
@@ -90,6 +94,7 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         //
+        dd($user->id);
         $validator = Validator::make($request->all(), [
             'username' => ['required', 'string', 'max:20', Rule::unique('users')->ignore($request->id)],
             'first_name' => ['required', 'string', 'max:30'],
