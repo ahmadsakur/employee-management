@@ -61,8 +61,8 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">System Menu</h6>
                         <a class="collapse-item" href="{{ route('countries.index') }}">Country</a>
-                        <a class="collapse-item" href="#">State</a>
-                        <a class="collapse-item" href="#">City</a>
+                        <a class="collapse-item" href="{{ route('states.index') }}">State</a>
+                        <a class="collapse-item" href="{{ route('cities.index') }}">City</a>
                         <a class="collapse-item" href="#">Department</a>
                     </div>
                 </div>

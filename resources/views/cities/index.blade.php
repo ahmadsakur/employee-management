@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('content')
     <div class="container">
-        <h4 class="card-title ">Country Data Management</h4>
+        <h4 class="card-title ">City Data Management</h4>
         <div class="card mb-3">
             <div>
                 @if (session()->has('message'))
@@ -24,7 +24,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col">
-                        <form method="GET" action="{{ route('countries.index') }}">
+                        <form method="GET" action="{{ route('cities.index') }}">
                             <div class="form-row align-items-center">
                                 <div class="col">
                                     <input type="search" name="keyword" placeholder="Search" class="form-control mb-2" id="inlineFormInput">
@@ -36,7 +36,7 @@
                         </form>
                     </div>
                     <div>
-                        <a href="{{ route('countries.create') }}" class="btn btn-success">
+                        <a href="{{ route('cities.create') }}" class="btn btn-success">
                             <span><i class="fas fa-plus"></i></span>
                             Create</a>
                     </div>
@@ -49,22 +49,22 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Country Code</th>
-                            <th scope="col">Country Name</th>
+                            <th scope="col">State Name</th>
+                            <th scope="col">City Name</th>
                             <th scope="col">Manage</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ( $countries as $item )
+                        @forelse ( $cities as $item )
                         <tr>
                             <td>{{ $item->id }}</td>
-                            <td>{{ $item->country_code }}</td>
+                            <td>{{ $item->state->name }}</td>
                             <td>{{ $item->name }}</td>
                             <td>
                                 <div class="justify-content-center">
-                                    <a href="{{ route('countries.edit', $item->id) }}"
+                                    <a href="{{ route('cities.edit', $item->id) }}"
                                         class="btn btn-sm btn-warning float-left mr-2">Edit</a>
-                                    <form method="POST" action="{{ route('countries.destroy', $item->id) }}">
+                                    <form method="POST" action="{{ route('cities.destroy', $item->id) }}">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
