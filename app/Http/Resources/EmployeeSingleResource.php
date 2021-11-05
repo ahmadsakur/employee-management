@@ -24,7 +24,7 @@ class EmployeeSingleResource extends JsonResource
             'state_id'     => $this->state_id,
             'city_id'      => $this->city_id,
             'department_id' => $this->department_id,
-            'zip_code'   => $this->zip_code,
+            'zip_code'   => $this->zipcode,
             'birthdate'  => $this->birthdate,
             'date_hired' => $this->date_hired
         ];

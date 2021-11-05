@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
@@ -25,4 +25,8 @@ Route::get('/employees/{country}/states', [EmployeeDataController::class, 'state
 Route::get('/employees/departments', [EmployeeDataController::class, 'departments']);
 Route::get('/employees/{state}/cities', [EmployeeDataController::class, 'cities']);
 
-Route::post('/employees', [EmployeeController::class, 'store']);
+// Route::get('/employees', [EmployeeController::class, 'index']);
+// Route::post('/employees', [EmployeeController::class, 'store']);
+// Route::delete('/employees/{employee}', [EmployeeController::class, 'destroy']);
+
+Route::apiResource('employees', EmployeeController::class);
